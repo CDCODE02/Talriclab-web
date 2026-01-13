@@ -6,11 +6,11 @@ const Footer: React.FC = () => {
     <footer className="py-12 px-6 md:px-12 lg:px-24 border-t border-brand-gray/10 bg-brand-navy">
       <div className="flex flex-col md:flex-row justify-between items-center gap-8">
         {/* Brand */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <img 
-            src="https://i.ibb.co/xqqK9L2D/talriclogo.png" 
+            src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
             alt="Talric Labs Logo" 
-            className="h-8 w-auto object-contain rounded-sm"
+            className="h-12 w-auto object-contain rounded-sm"
           />
           <span className="text-lg font-bold tracking-wider text-white">TALRIC LABS</span>
         </div>

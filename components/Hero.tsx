@@ -25,11 +25,11 @@ const Hero: React.FC = () => {
 
       {/* Navigation / Header Area */}
       <div className="absolute top-0 left-0 w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
            <img 
-             src="https://i.ibb.co/xqqK9L2D/talriclogo.png" 
+             src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
              alt="Talric Labs Logo" 
-             className="h-10 w-auto object-contain rounded-md"
+             className="h-16 w-auto object-contain rounded-md"
            />
            <span className="text-sm font-bold tracking-widest text-white">TALRIC LABS</span>
         </div>
