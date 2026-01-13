@@ -7,7 +7,11 @@ const Footer: React.FC = () => {
       <div className="flex flex-col md:flex-row justify-between items-center gap-8">
         {/* Brand */}
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-brand-cyan rounded-full"></div>
+          <img 
+            src="https://photos.app.goo.gl/VVKmhWubB4naXFhL9" 
+            alt="Talric Labs Logo" 
+            className="h-8 w-auto object-contain rounded-sm"
+          />
           <span className="text-lg font-bold tracking-wider text-white">TALRIC LABS</span>
         </div>
 

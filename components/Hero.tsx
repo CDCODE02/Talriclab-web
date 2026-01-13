@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowDown, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
@@ -26,9 +26,11 @@ const Hero: React.FC = () => {
       {/* Navigation / Header Area */}
       <div className="absolute top-0 left-0 w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center">
         <div className="flex items-center gap-3">
-           <div className="w-6 h-6 border border-brand-cyan/30 bg-brand-cyan/10 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 bg-brand-cyan shadow-[0_0_8px_rgba(0,209,255,0.8)]"></div>
-           </div>
+           <img 
+             src="https://photos.app.goo.gl/VVKmhWubB4naXFhL9" 
+             alt="Talric Labs Logo" 
+             className="h-10 w-auto object-contain rounded-md"
+           />
            <span className="text-sm font-bold tracking-widest text-white">TALRIC LABS</span>
         </div>
         
