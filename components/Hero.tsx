@@ -72,12 +72,15 @@ const Hero: React.FC = () => {
             : 'py-8 bg-transparent'
         }`}
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
            <img 
              src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
              alt="Talric Labs Logo" 
-             className={`w-auto object-contain rounded-md transition-all duration-300 ${isScrolled ? 'h-12' : 'h-16'}`}
+             className={`w-auto object-contain rounded-md transition-all duration-300 ${isScrolled ? 'h-10' : 'h-12'}`}
            />
+           <span className={`font-bold tracking-wide text-white transition-all duration-300 ${isScrolled ? 'text-lg' : 'text-xl'}`}>
+             Talric
+           </span>
         </div>
         
         {/* Desktop Navigation */}
