@@ -5,8 +5,12 @@ const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // Trigger animation after mount
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -31,6 +35,7 @@ const Hero: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
+      clearTimeout(timer);
     };
   }, []);
 
@@ -139,7 +144,7 @@ const Hero: React.FC = () => {
       <div className="relative z-10 px-6 max-w-5xl w-full flex flex-col items-center text-center mt-16">
         
         {/* Animated Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-brand-gray/80 text-xs font-medium backdrop-blur-md mb-8 hover:border-brand-cyan/30 hover:text-brand-cyan transition-colors cursor-default">
+        <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-brand-gray/80 text-xs font-medium backdrop-blur-md mb-8 hover:border-brand-cyan/30 hover:text-brand-cyan transition-all duration-700 ease-out cursor-default ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-cyan"></span>
@@ -147,19 +152,25 @@ const Hero: React.FC = () => {
           System Status: Operational
         </div>
 
-        {/* Headline */}
+        {/* Headline with Staggered Animation */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.1] mb-8">
-          Build the <br className="md:hidden" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">Future Faster.</span>
+          <span className={`inline-block transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            Build the
+          </span>
+          {' '}
+          <br className="md:hidden" />
+          <span className={`inline-block text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 transition-all duration-1000 delay-200 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            Future Faster.
+          </span>
         </h1>
         
-        <p className="text-lg md:text-xl text-brand-gray/60 max-w-2xl font-light leading-relaxed mb-12">
+        <p className={`text-lg md:text-xl text-brand-gray/60 max-w-2xl font-light leading-relaxed mb-12 transition-all duration-1000 delay-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           A thesis-driven venture studio architecting category-defining companies. 
           We bridge the gap between <span className="text-brand-cyan">raw ambition</span> and <span className="text-white">proven execution</span>.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+        <div className={`flex flex-col sm:flex-row gap-4 w-full justify-center transition-all duration-1000 delay-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <a href="#contact" className="group relative px-8 py-4 bg-brand-cyan text-brand-navy font-bold text-sm tracking-wide rounded-sm overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
              <span className="relative z-10 flex items-center gap-2">
                START BUILDING
@@ -174,7 +185,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Bottom Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
+      <div className={`absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50 transition-all duration-1000 delay-700 ${isLoaded ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-gray">Scroll</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-brand-cyan to-transparent"></div>
       </div>
