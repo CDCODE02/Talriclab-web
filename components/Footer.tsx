@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
         {/* Brand */}
         <div className="flex items-center gap-2">
           <img 
-            src="https://photos.app.goo.gl/VVKmhWubB4naXFhL9" 
+            src="https://i.ibb.co/xqqK9L2D/talriclogo.png" 
             alt="Talric Labs Logo" 
             className="h-8 w-auto object-contain rounded-sm"
           />

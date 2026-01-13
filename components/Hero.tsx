@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
       <div className="absolute top-0 left-0 w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center">
         <div className="flex items-center gap-3">
            <img 
-             src="https://photos.app.goo.gl/VVKmhWubB4naXFhL9" 
+             src="https://i.ibb.co/xqqK9L2D/talriclogo.png" 
              alt="Talric Labs Logo" 
              className="h-10 w-auto object-contain rounded-md"
            />
