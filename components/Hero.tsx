@@ -31,7 +31,6 @@ const Hero: React.FC = () => {
              alt="Talric Labs Logo" 
              className="h-16 w-auto object-contain rounded-md"
            />
-           <span className="text-sm font-bold tracking-widest text-white">TALRIC LABS</span>
         </div>
         
         <div className="hidden md:flex items-center gap-6">
