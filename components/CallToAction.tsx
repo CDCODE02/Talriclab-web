@@ -22,7 +22,7 @@ const CallToAction: React.FC = () => {
   };
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:px-24 w-full bg-brand-navy border-t border-white/5">
+    <section id="contact" className="scroll-mt-32 py-32 px-6 md:px-12 lg:px-24 w-full bg-brand-navy border-t border-white/5">
       <div className="max-w-6xl mx-auto bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 rounded-2xl p-8 md:p-16 lg:p-24 relative overflow-hidden">
         
         {/* Glow Effects */}

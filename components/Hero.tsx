@@ -1,7 +1,48 @@
-import React from 'react';
-import { ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronRight, Menu, X } from 'lucide-react';
 
 const Hero: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    // Intersection Observer for Active Link highlighting
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -50% 0px' } 
+    );
+
+    document.querySelectorAll('section[id]').forEach((section) => {
+      observer.observe(section);
+    });
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
+  }, []);
+
+  const navLinks = [
+    { name: 'About', href: '#about' },
+    { name: 'Methodology', href: '#methodology' },
+    { name: 'Focus', href: '#focus' },
+    { name: 'Contact', href: '#contact' },
+  ];
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-12 border-b border-white/5 bg-brand-navy overflow-hidden">
       
@@ -24,24 +65,75 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Navigation / Header Area */}
-      <div className="absolute top-0 left-0 w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center">
+      <div 
+        className={`fixed top-0 left-0 w-full z-50 px-6 md:px-12 flex justify-between items-center transition-all duration-300 ${
+          isScrolled 
+            ? 'py-4 bg-brand-navy/80 backdrop-blur-md border-b border-white/5 shadow-lg' 
+            : 'py-8 bg-transparent'
+        }`}
+      >
         <div className="flex items-center gap-4">
            <img 
              src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
              alt="Talric Labs Logo" 
-             className="h-16 w-auto object-contain rounded-md"
+             className={`w-auto object-contain rounded-md transition-all duration-300 ${isScrolled ? 'h-12' : 'h-16'}`}
            />
         </div>
         
-        <div className="hidden md:flex items-center gap-6">
-          <span className="text-xs font-mono text-brand-cyan/80 px-3 py-1 bg-brand-cyan/10 border border-brand-cyan/20 rounded-full">
-            BETA ACCESS
-          </span>
-        </div>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.substring(1);
+            return (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className={`group relative text-sm font-medium tracking-wide transition-colors duration-300 ${
+                  isActive ? 'text-white' : 'text-brand-gray/70 hover:text-white'
+                }`}
+              >
+                {link.name}
+                <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-brand-cyan rounded-full transition-transform duration-300 origin-left ${
+                  isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`} />
+              </a>
+            );
+          })}
+          <a href="#contact" className="text-xs font-mono text-brand-navy px-5 py-2 bg-white hover:bg-brand-cyan transition-colors rounded-sm font-bold tracking-wider">
+            GET IN TOUCH
+          </a>
+        </nav>
+
+        {/* Mobile Hamburger */}
+        <button 
+          className="md:hidden text-white hover:text-brand-cyan transition-colors z-50"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+        </button>
       </div>
 
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-brand-navy/95 backdrop-blur-lg flex flex-col items-center justify-center animate-in fade-in duration-200">
+          <nav className="flex flex-col items-center gap-8">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                onClick={() => setIsMenuOpen(false)}
+                className="text-2xl font-light text-white hover:text-brand-cyan transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
+
       {/* Main Hero Content */}
-      <div className="relative z-10 px-6 max-w-5xl w-full flex flex-col items-center text-center">
+      <div className="relative z-10 px-6 max-w-5xl w-full flex flex-col items-center text-center mt-16">
         
         {/* Animated Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-brand-gray/80 text-xs font-medium backdrop-blur-md mb-8 hover:border-brand-cyan/30 hover:text-brand-cyan transition-colors cursor-default">
@@ -65,16 +157,16 @@ const Hero: React.FC = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-          <button className="group relative px-8 py-4 bg-brand-cyan text-brand-navy font-bold text-sm tracking-wide rounded-sm overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          <a href="#contact" className="group relative px-8 py-4 bg-brand-cyan text-brand-navy font-bold text-sm tracking-wide rounded-sm overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
              <span className="relative z-10 flex items-center gap-2">
                START BUILDING
                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
              </span>
-          </button>
+          </a>
           
-          <button className="px-8 py-4 bg-transparent border border-white/10 text-white font-medium text-sm tracking-wide rounded-sm hover:bg-white/5 transition-colors">
+          <a href="#about" className="px-8 py-4 bg-transparent border border-white/10 text-white font-medium text-sm tracking-wide rounded-sm hover:bg-white/5 transition-colors">
              OUR THESIS
-          </button>
+          </a>
         </div>
       </div>
 

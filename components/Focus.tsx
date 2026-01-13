@@ -27,7 +27,7 @@ const FocusCard: React.FC<{ title: string; tags: string[]; icon: React.ElementTy
 
 const Focus: React.FC = () => {
   return (
-    <section className="py-32 px-6 md:px-12 lg:px-24 w-full bg-brand-navy relative overflow-hidden">
+    <section id="focus" className="scroll-mt-32 py-32 px-6 md:px-12 lg:px-24 w-full bg-brand-navy relative overflow-hidden">
       {/* Decorative Background Blob */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none" />
 

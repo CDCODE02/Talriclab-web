@@ -2,7 +2,7 @@ import React from 'react';
 
 const About: React.FC = () => {
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-24 w-full">
+    <section id="about" className="scroll-mt-32 py-24 px-6 md:px-12 lg:px-24 w-full">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
         <div className="col-span-1 md:col-span-3">
           <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-cyan">About Us</h2>

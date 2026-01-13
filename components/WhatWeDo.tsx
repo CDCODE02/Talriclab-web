@@ -45,7 +45,7 @@ const Capability: React.FC<CapabilityProps> = ({ icon: Icon, title, description,
 
 const WhatWeDo: React.FC = () => {
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-24 w-full bg-brand-navy relative">
+    <section id="methodology" className="scroll-mt-32 py-24 px-6 md:px-12 lg:px-24 w-full bg-brand-navy relative">
       <div className="mb-20">
         <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-cyan">Methodology</h2>
         <h3 className="mt-4 text-3xl font-light text-white">How we build.</h3>
