@@ -5,7 +5,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { cn } from "../../lib/utils";
+import { cn, smoothScrollTo } from "../../lib/utils";
 import { ArrowRight } from "lucide-react";
 
 export const FloatingNav = ({
@@ -63,6 +63,7 @@ export const FloatingNav = ({
           <a
             key={`link=${idx}`}
             href={navItem.link}
+            onClick={(e) => smoothScrollTo(e, navItem.link, 100)}
             className={cn(
               "relative items-center flex space-x-1 text-brand-gray/80 hover:text-white transition-colors text-sm font-medium tracking-wide"
             )}
@@ -74,6 +75,7 @@ export const FloatingNav = ({
         
         <a 
           href="#contact" 
+          onClick={(e) => smoothScrollTo(e, '#contact', 100)}
           className="group relative flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-brand-cyan/50 hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] active:scale-95"
         >
           {/* Background Gradient Hover */}

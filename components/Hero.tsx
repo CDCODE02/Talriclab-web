@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronRight, Menu, X, Mail } from 'lucide-react';
 import { FloatingPaths } from './ui/background-paths';
 import { motion } from 'framer-motion';
+import { smoothScrollTo } from '../lib/utils';
 
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,7 +62,11 @@ const Hero: React.FC = () => {
       {/* Navigation / Header Area */}
       <div className="absolute top-0 left-0 w-full z-50 flex justify-center py-8 bg-transparent">
         <div className="w-full max-w-5xl px-6 flex justify-between items-center relative">
-            <a href="#home" className="flex items-center gap-3 group relative z-50">
+            <a 
+              href="#home" 
+              className="flex items-center gap-3 group relative z-50"
+              onClick={(e) => smoothScrollTo(e, '#home')}
+            >
             <img 
                 src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
                 alt="Talric Labs Logo" 
@@ -80,6 +85,7 @@ const Hero: React.FC = () => {
                 <a 
                     key={link.name} 
                     href={link.href} 
+                    onClick={(e) => smoothScrollTo(e, link.href, 100)}
                     className={`group relative tracking-wide transition-all duration-300 ${
                     isActive 
                         ? 'text-base font-bold text-white' 
@@ -101,6 +107,7 @@ const Hero: React.FC = () => {
             <div className="flex items-center gap-4 relative z-50">
                 <a 
                 href="#contact" 
+                onClick={(e) => smoothScrollTo(e, '#contact', 100)}
                 className="hidden md:flex items-center justify-center w-11 h-11 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-white transition-all duration-300 hover:bg-brand-cyan hover:text-brand-navy hover:border-brand-cyan hover:scale-105 hover:shadow-[0_0_20px_rgba(0,209,255,0.3)] group"
                 aria-label="Get in touch"
                 >
@@ -127,7 +134,10 @@ const Hero: React.FC = () => {
               <a 
                 key={link.name} 
                 href={link.href} 
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  setIsMenuOpen(false);
+                  smoothScrollTo(e, link.href, 100);
+                }}
                 className="text-2xl font-light text-white hover:text-brand-cyan transition-colors"
               >
                 {link.name}
@@ -135,7 +145,10 @@ const Hero: React.FC = () => {
             ))}
              <a 
                href="#contact"
-               onClick={() => setIsMenuOpen(false)}
+               onClick={(e) => {
+                 setIsMenuOpen(false);
+                 smoothScrollTo(e, '#contact', 100);
+               }}
                className="mt-4 text-sm font-mono text-brand-navy px-8 py-3 bg-white hover:bg-brand-cyan transition-colors rounded-sm font-bold tracking-wider"
              >
                 GET IN TOUCH
@@ -204,14 +217,22 @@ const Hero: React.FC = () => {
            transition={{ delay: 1.2, duration: 1 }}
            className="flex flex-col sm:flex-row gap-4 w-full justify-center"
         >
-          <a href="#contact" className="group relative px-8 py-4 bg-brand-cyan text-brand-navy font-bold text-sm tracking-wide rounded-sm overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          <a 
+            href="#contact" 
+            onClick={(e) => smoothScrollTo(e, '#contact', 200)}
+            className="group relative px-8 py-4 bg-brand-cyan text-brand-navy font-bold text-sm tracking-wide rounded-sm overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+          >
              <span className="relative z-10 flex items-center gap-2">
                START BUILDING
                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
              </span>
           </a>
           
-          <a href="#about" className="px-8 py-4 bg-transparent border border-white/10 text-white font-medium text-sm tracking-wide rounded-sm hover:bg-white/5 transition-colors">
+          <a 
+            href="#about" 
+            onClick={(e) => smoothScrollTo(e, '#about', 200)}
+            className="px-8 py-4 bg-transparent border border-white/10 text-white font-medium text-sm tracking-wide rounded-sm hover:bg-white/5 transition-colors"
+          >
              OUR THESIS
           </a>
         </motion.div>
