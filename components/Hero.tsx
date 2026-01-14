@@ -152,7 +152,7 @@ const Hero: React.FC = () => {
           System Status: Operational
         </div>
 
-        {/* Headline with Spring Animation */}
+        {/* Headline with Refined Spring Animation */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.1] mb-8">
           {titleWords.map((word, wordIndex) => (
               <span
@@ -162,13 +162,14 @@ const Hero: React.FC = () => {
                   {word.split("").map((letter, letterIndex) => (
                       <motion.span
                           key={`${wordIndex}-${letterIndex}`}
-                          initial={{ y: 50, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
+                          initial={{ y: 20, opacity: 0, filter: "blur(8px)" }}
+                          animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                           transition={{
-                              delay: wordIndex * 0.15 + letterIndex * 0.03,
+                              delay: wordIndex * 0.15 + letterIndex * 0.05,
                               type: "spring",
-                              stiffness: 100,
-                              damping: 20,
+                              stiffness: 150,
+                              damping: 15,
+                              mass: 0.8
                           }}
                           className={`inline-block ${
                              // Apply gradient to "Faster." or just white for clean look
