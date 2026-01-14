@@ -1,5 +1,6 @@
 import React from 'react';
 import { Cpu, Globe, Layers } from 'lucide-react';
+import AnimatedShaderBackground from './ui/animated-shader-background';
 
 const FocusCard: React.FC<{ title: string; tags: string[]; icon: React.ElementType }> = ({ title, tags, icon: Icon }) => (
   <div className="group relative bg-brand-navy border border-white/10 p-8 h-full rounded-xl overflow-hidden hover:border-brand-cyan/30 transition-all duration-500">
@@ -28,8 +29,14 @@ const FocusCard: React.FC<{ title: string; tags: string[]; icon: React.ElementTy
 const Focus: React.FC = () => {
   return (
     <section id="focus" className="scroll-mt-32 py-32 px-6 md:px-12 lg:px-24 w-full bg-brand-navy relative overflow-hidden">
+      
+      {/* Background Shader */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none mix-blend-screen">
+        <AnimatedShaderBackground />
+      </div>
+
       {/* Decorative Background Blob */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none z-0" />
 
       <div className="relative z-10 mb-16 text-center md:text-left md:flex md:justify-between md:items-end">
         <div>

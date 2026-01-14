@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Twitter, Linkedin, Mail } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import AnimatedShaderBackground from './ui/animated-shader-background';
 
 const Footer: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -18,15 +19,20 @@ const Footer: React.FC = () => {
   return (
     <footer ref={containerRef} className="relative py-16 px-6 md:px-12 lg:px-24 border-t border-white/5 bg-brand-navy overflow-hidden">
       
+      {/* Background Shader */}
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none mix-blend-screen">
+        <AnimatedShaderBackground />
+      </div>
+
       {/* Parallax Background Elements */}
       <motion.div 
         style={{ y: y1, opacity }}
-        className="absolute -top-[200px] -left-[100px] w-[500px] h-[500px] bg-brand-cyan rounded-full blur-[120px] pointer-events-none"
+        className="absolute -top-[200px] -left-[100px] w-[500px] h-[500px] bg-brand-cyan rounded-full blur-[120px] pointer-events-none z-0"
       />
       
       <motion.div 
         style={{ y: y2, opacity }}
-        className="absolute -bottom-[200px] -right-[100px] w-[600px] h-[600px] bg-blue-900 rounded-full blur-[140px] pointer-events-none"
+        className="absolute -bottom-[200px] -right-[100px] w-[600px] h-[600px] bg-blue-900 rounded-full blur-[140px] pointer-events-none z-0"
       />
 
       <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">

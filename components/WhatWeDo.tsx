@@ -1,5 +1,6 @@
 import React from 'react';
 import { Lightbulb, Code2, Rocket, ArrowRight } from 'lucide-react';
+import AnimatedShaderBackground from './ui/animated-shader-background';
 
 interface CapabilityProps {
   icon: React.ElementType;
@@ -9,7 +10,7 @@ interface CapabilityProps {
 }
 
 const Capability: React.FC<CapabilityProps> = ({ icon: Icon, title, description, index }) => (
-  <div className="group relative border-t border-white/10 py-16 hover:bg-white/[0.02] transition-colors duration-300">
+  <div className="group relative border-t border-white/10 py-16 hover:bg-white/[0.02] transition-colors duration-300 z-10">
     <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
       
       {/* Index Number */}
@@ -45,13 +46,19 @@ const Capability: React.FC<CapabilityProps> = ({ icon: Icon, title, description,
 
 const WhatWeDo: React.FC = () => {
   return (
-    <section id="methodology" className="scroll-mt-32 py-24 px-6 md:px-12 lg:px-24 w-full bg-brand-navy relative">
-      <div className="mb-20">
+    <section id="methodology" className="scroll-mt-32 py-24 px-6 md:px-12 lg:px-24 w-full bg-brand-navy relative overflow-hidden">
+      
+      {/* Background Shader */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none mix-blend-screen">
+        <AnimatedShaderBackground />
+      </div>
+
+      <div className="relative z-10 mb-20">
         <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-cyan">Methodology</h2>
         <h3 className="mt-4 text-3xl font-light text-white">How we build.</h3>
       </div>
 
-      <div className="flex flex-col">
+      <div className="relative z-10 flex flex-col">
         <Capability 
           index="01"
           icon={Lightbulb}

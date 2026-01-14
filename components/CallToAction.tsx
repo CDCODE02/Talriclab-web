@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
+import AnimatedShaderBackground from './ui/animated-shader-background';
 
 const CallToAction: React.FC = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
@@ -22,8 +23,14 @@ const CallToAction: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="scroll-mt-32 py-32 px-6 md:px-12 lg:px-24 w-full bg-brand-navy border-t border-white/5">
-      <div className="max-w-6xl mx-auto bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 rounded-2xl p-8 md:p-16 lg:p-24 relative overflow-hidden">
+    <section id="contact" className="scroll-mt-32 py-32 px-6 md:px-12 lg:px-24 w-full bg-brand-navy border-t border-white/5 relative overflow-hidden">
+      
+      {/* Background Shader */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none mix-blend-screen">
+        <AnimatedShaderBackground />
+      </div>
+
+      <div className="max-w-6xl mx-auto bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 rounded-2xl p-8 md:p-16 lg:p-24 relative overflow-hidden z-10">
         
         {/* Glow Effects */}
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-brand-cyan/10 blur-[100px] pointer-events-none" />
