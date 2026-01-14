@@ -78,7 +78,7 @@ const Hero: React.FC = () => {
             : 'py-8 bg-transparent'
         }`}
       >
-        <a href="#home" className="flex items-center gap-3 group">
+        <a href="#home" className="flex items-center gap-3 group relative z-50">
            <img 
              src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
              alt="Talric Labs Logo" 
@@ -89,8 +89,8 @@ const Hero: React.FC = () => {
            </span>
         </a>
         
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Centered Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.substring(1);
             return (
@@ -112,19 +112,23 @@ const Hero: React.FC = () => {
               </a>
             );
           })}
-          <a href="#contact" className="text-xs font-mono text-brand-navy px-5 py-2 bg-white hover:bg-brand-cyan transition-colors rounded-sm font-bold tracking-wider">
-            GET IN TOUCH
-          </a>
         </nav>
 
-        {/* Mobile Hamburger */}
-        <button 
-          className="md:hidden text-white hover:text-brand-cyan transition-colors z-50"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
-        </button>
+        {/* Right Side Actions */}
+        <div className="flex items-center gap-4 relative z-50">
+            <a href="#contact" className="hidden md:block text-xs font-mono text-brand-navy px-5 py-2 bg-white hover:bg-brand-cyan transition-colors rounded-sm font-bold tracking-wider">
+                GET IN TOUCH
+            </a>
+
+            {/* Mobile Hamburger */}
+            <button 
+            className="md:hidden text-white hover:text-brand-cyan transition-colors"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+            >
+            {isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -141,6 +145,14 @@ const Hero: React.FC = () => {
                 {link.name}
               </a>
             ))}
+            {/* Mobile CTA */}
+             <a 
+               href="#contact"
+               onClick={() => setIsMenuOpen(false)}
+               className="mt-4 text-sm font-mono text-brand-navy px-8 py-3 bg-white hover:bg-brand-cyan transition-colors rounded-sm font-bold tracking-wider"
+             >
+                GET IN TOUCH
+             </a>
           </nav>
         </div>
       )}
