@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { Twitter, Linkedin, Mail } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import AnimatedShaderBackground from './ui/animated-shader-background';
 
 const Footer: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -17,13 +16,8 @@ const Footer: React.FC = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.1, 0.15]);
 
   return (
-    <footer ref={containerRef} className="relative py-16 px-6 md:px-12 lg:px-24 border-t border-white/5 bg-brand-navy overflow-hidden">
+    <footer ref={containerRef} className="relative py-16 px-6 md:px-12 lg:px-24 border-t border-white/5 bg-transparent overflow-hidden">
       
-      {/* Background Shader */}
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none mix-blend-screen">
-        <AnimatedShaderBackground />
-      </div>
-
       {/* Parallax Background Elements */}
       <motion.div 
         style={{ y: y1, opacity }}

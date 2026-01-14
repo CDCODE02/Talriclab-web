@@ -7,6 +7,7 @@ import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
 import { FloatingNav } from './components/ui/floating-navbar';
 import { Home, Info, Layers, Target, Mail } from 'lucide-react';
+import AnimatedShaderBackground from './components/ui/animated-shader-background';
 
 const App: React.FC = () => {
   const navItems = [
@@ -18,14 +19,25 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-brand-navy text-brand-gray font-sans selection:bg-brand-cyan selection:text-brand-navy overflow-x-hidden">
+    <div className="min-h-screen w-full bg-brand-navy text-brand-gray font-sans selection:bg-brand-cyan selection:text-brand-navy overflow-x-hidden relative">
+      
+      {/* Global Background Layer */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-20 mix-blend-screen">
+           <AnimatedShaderBackground />
+        </div>
+      </div>
+
       <FloatingNav navItems={navItems} />
-      <Hero />
-      <About />
-      <WhatWeDo />
-      <Focus />
-      <CallToAction />
-      <Footer />
+      
+      <div className="relative z-10">
+        <Hero />
+        <About />
+        <WhatWeDo />
+        <Focus />
+        <CallToAction />
+        <Footer />
+      </div>
     </div>
   );
 };

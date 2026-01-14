@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
   const titleWords = ["Build", "the", "Future", "Faster."];
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-12 border-b border-white/5 bg-brand-navy overflow-hidden">
+    <section id="home" className="relative z-10 min-h-screen flex flex-col items-center justify-center pt-20 pb-12 border-b border-white/5 bg-brand-navy overflow-hidden">
       
       {/* NEW BACKGROUND: Floating Paths */}
       <div className="absolute inset-0 z-0">
