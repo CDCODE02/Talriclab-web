@@ -39,12 +39,13 @@ const About: React.FC = () => {
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
           }`}>
             
-            {/* Static Image Background */}
+            {/* Static Image Background - Optimized Size */}
             <div className="absolute inset-0 z-0">
                <img 
-                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1080&auto=format&fit=crop" 
                 alt="Abstract geometric structure representing venture building" 
                 className="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-1000 ease-out"
+                loading="lazy"
                />
             </div>
 

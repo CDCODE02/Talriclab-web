@@ -13,16 +13,17 @@ const AnimatedShaderBackground = ({ className }: { className?: string }) => {
 
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    // Optimization: powerPreference high-performance
+    
     const renderer = new THREE.WebGLRenderer({ 
-      antialias: false, // Disable antialias for background performance
+      antialias: false,
       alpha: true,
-      powerPreference: "high-performance"
+      powerPreference: "high-performance",
+      depth: false, // Disable depth buffer for simple 2D background
+      stencil: false // Disable stencil buffer
     });
     
     renderer.setSize(width, height);
-    // Optimization: Force pixel ratio to 1 for performance
-    renderer.setPixelRatio(1);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Cap pixel ratio
     container.appendChild(renderer.domElement);
 
     const material = new THREE.ShaderMaterial({
@@ -35,12 +36,14 @@ const AnimatedShaderBackground = ({ className }: { className?: string }) => {
           gl_Position = vec4(position, 1.0);
         }
       `,
-      // Optimization: Reduced loop count from 35.0 to 18.0
+      // Heavily optimized fragment shader
+      // Reduced Octaves to 2
+      // Reduced Loop to 12.0
       fragmentShader: `
         uniform float iTime;
         uniform vec2 iResolution;
 
-        #define NUM_OCTAVES 3
+        #define NUM_OCTAVES 2
 
         float rand(vec2 n) {
           return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
@@ -78,10 +81,10 @@ const AnimatedShaderBackground = ({ className }: { className?: string }) => {
 
           float f = 2.0 + fbm(p + vec2(iTime * 5.0, 0.0)) * 0.5;
 
-          // Reduced loop from 35.0 to 18.0 for performance
-          for (float i = 0.0; i < 18.0; i++) {
+          // Optimization: Reduced loop from 18.0 to 12.0
+          for (float i = 0.0; i < 12.0; i++) {
             v = p + cos(i * i + (iTime + p.x * 0.08) * 0.025 + i * vec2(13.0, 11.0)) * 3.5 + vec2(sin(iTime * 3.0 + i) * 0.003, cos(iTime * 3.5 - i) * 0.003);
-            float tailNoise = fbm(v + vec2(iTime * 0.5, i)) * 0.3 * (1.0 - (i / 18.0));
+            float tailNoise = fbm(v + vec2(iTime * 0.5, i)) * 0.3 * (1.0 - (i / 12.0));
             vec4 auroraColors = vec4(
               0.1 + 0.3 * sin(i * 0.2 + iTime * 0.4),
               0.3 + 0.5 * cos(i * 0.3 + iTime * 0.5),
@@ -89,7 +92,7 @@ const AnimatedShaderBackground = ({ className }: { className?: string }) => {
               1.0
             );
             vec4 currentContribution = auroraColors * exp(sin(i * i + iTime * 0.8)) / length(max(v, vec2(v.x * f * 0.015, v.y * 1.5)));
-            float thinnessFactor = smoothstep(0.0, 1.0, i / 18.0) * 0.6;
+            float thinnessFactor = smoothstep(0.0, 1.0, i / 12.0) * 0.6;
             o += currentContribution * (1.0 + tailNoise * 0.8) * thinnessFactor;
           }
 
@@ -104,12 +107,17 @@ const AnimatedShaderBackground = ({ className }: { className?: string }) => {
     scene.add(mesh);
 
     let frameId: number;
-    const animate = () => {
-      material.uniforms.iTime.value += 0.008;
-      renderer.render(scene, camera);
+    let lastTime = 0;
+    // Cap animation at 60fps to save battery on high refresh screens
+    const animate = (time: number) => {
+      if (time - lastTime > 16) {
+        material.uniforms.iTime.value += 0.01;
+        renderer.render(scene, camera);
+        lastTime = time;
+      }
       frameId = requestAnimationFrame(animate);
     };
-    animate();
+    frameId = requestAnimationFrame(animate);
 
     const handleResize = () => {
       if (!container) return;
@@ -129,6 +137,7 @@ const AnimatedShaderBackground = ({ className }: { className?: string }) => {
       geometry.dispose();
       material.dispose();
       renderer.dispose();
+      renderer.forceContextLoss();
     };
   }, []);
 

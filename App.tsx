@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import Hero from './components/Hero';
-import About from './components/About';
-import WhatWeDo from './components/WhatWeDo';
-import Focus from './components/Focus';
-import CallToAction from './components/CallToAction';
-import Footer from './components/Footer';
 import { FloatingNav } from './components/ui/floating-navbar';
 import { Home, Info, Layers, Target, Mail } from 'lucide-react';
 import AnimatedShaderBackground from './components/ui/animated-shader-background';
+
+// Lazy load below-the-fold components to speed up initial render
+const About = lazy(() => import('./components/About'));
+const WhatWeDo = lazy(() => import('./components/WhatWeDo'));
+const Focus = lazy(() => import('./components/Focus'));
+const CallToAction = lazy(() => import('./components/CallToAction'));
+const Footer = lazy(() => import('./components/Footer'));
 
 const App: React.FC = () => {
   const navItems = [
@@ -32,11 +34,15 @@ const App: React.FC = () => {
       
       <div className="relative z-10">
         <Hero />
-        <About />
-        <WhatWeDo />
-        <Focus />
-        <CallToAction />
-        <Footer />
+        
+        {/* Wrap lazy-loaded components in Suspense */}
+        <Suspense fallback={<div className="w-full h-96 flex items-center justify-center text-brand-cyan/20">Loading...</div>}>
+          <About />
+          <WhatWeDo />
+          <Focus />
+          <CallToAction />
+          <Footer />
+        </Suspense>
       </div>
     </div>
   );
