@@ -40,6 +40,7 @@ const Hero: React.FC = () => {
   }, []);
 
   const navLinks = [
+    { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Methodology', href: '#methodology' },
     { name: 'Focus', href: '#focus' },
@@ -49,7 +50,7 @@ const Hero: React.FC = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-12 border-b border-white/5 bg-brand-navy overflow-hidden">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-12 border-b border-white/5 bg-brand-navy overflow-hidden">
       
       {/* Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -77,16 +78,16 @@ const Hero: React.FC = () => {
             : 'py-8 bg-transparent'
         }`}
       >
-        <div className="flex items-center gap-3">
+        <a href="#home" className="flex items-center gap-3 group">
            <img 
              src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
              alt="Talric Labs Logo" 
              className={`w-auto object-contain rounded-md transition-all duration-300 ${isScrolled ? 'h-10' : 'h-12'}`}
            />
-           <span className={`font-bold tracking-wide text-white transition-all duration-300 ${isScrolled ? 'text-lg' : 'text-xl'}`}>
+           <span className={`font-bold tracking-wide text-white transition-all duration-300 group-hover:text-brand-cyan ${isScrolled ? 'text-lg' : 'text-xl'}`}>
              Talric
            </span>
-        </div>
+        </a>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
@@ -96,13 +97,17 @@ const Hero: React.FC = () => {
               <a 
                 key={link.name} 
                 href={link.href} 
-                className={`group relative text-sm font-medium tracking-wide transition-colors duration-300 ${
-                  isActive ? 'text-white' : 'text-brand-gray/70 hover:text-white'
+                className={`group relative tracking-wide transition-all duration-300 ${
+                  isActive 
+                    ? 'text-base font-bold text-white' 
+                    : 'text-sm font-medium text-brand-gray/70 hover:text-white'
                 }`}
               >
                 {link.name}
-                <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-brand-cyan rounded-full transition-transform duration-300 origin-left ${
-                  isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                <span className={`absolute -bottom-1.5 left-0 w-full bg-brand-cyan rounded-full transition-all duration-300 origin-left ${
+                  isActive 
+                    ? 'scale-x-100 h-[3px] shadow-[0_0_8px_rgba(0,209,255,0.5)]' 
+                    : 'scale-x-0 h-0.5 group-hover:scale-x-100'
                 }`} />
               </a>
             );
