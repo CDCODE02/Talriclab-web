@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronRight, Menu, X } from 'lucide-react';
 
 const Hero: React.FC = () => {
@@ -7,12 +7,28 @@ const Hero: React.FC = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Refs for parallax elements
+  const gridRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     // Trigger animation after mount
     const timer = setTimeout(() => setIsLoaded(true), 100);
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollPos = window.scrollY;
+      setIsScrolled(scrollPos > 20);
+
+      // Parallax effects
+      // Use requestAnimationFrame for smoother performance if needed, 
+      // but direct updates are usually fine for simple transforms.
+      if (gridRef.current) {
+        gridRef.current.style.transform = `translateY(${scrollPos * 0.25}px)`;
+      }
+      if (glowRef.current) {
+        // Maintain the horizontal centering (-50%) while translating vertically
+        glowRef.current.style.transform = `translate(-50%, ${scrollPos * 0.15}px)`;
+      }
     };
 
     // Intersection Observer for Active Link highlighting
@@ -56,7 +72,8 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Subtle Grid */}
         <div 
-          className="absolute inset-0 opacity-20" 
+          ref={gridRef}
+          className="absolute inset-0 opacity-20 will-change-transform" 
           style={{
             backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
@@ -67,7 +84,10 @@ const Hero: React.FC = () => {
         />
         
         {/* Top Spotlight Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-cyan/20 rounded-full blur-[120px] opacity-40 mix-blend-screen" />
+        <div 
+          ref={glowRef}
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-cyan/20 rounded-full blur-[120px] opacity-40 mix-blend-screen will-change-transform" 
+        />
       </div>
 
       {/* Navigation / Header Area */}
