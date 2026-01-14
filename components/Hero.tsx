@@ -4,7 +4,7 @@ import { ChevronRight, Menu, X } from 'lucide-react';
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('home');
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
           }
         });
       },
-      { rootMargin: '-20% 0px -50% 0px' } 
+      { rootMargin: '-45% 0px -45% 0px' } 
     );
 
     document.querySelectorAll('section[id]').forEach((section) => {
