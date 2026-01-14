@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const CallToAction: React.FC = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
@@ -50,23 +51,64 @@ const CallToAction: React.FC = () => {
           </div>
 
           {/* Form Side */}
-          <div className="bg-brand-navy/50 backdrop-blur-sm p-6 md:p-8 rounded-xl border border-white/10">
+          <div className="bg-brand-navy/50 backdrop-blur-sm p-6 md:p-8 rounded-xl border border-white/10 min-h-[420px] flex flex-col justify-center">
+            <AnimatePresence mode="wait">
             {submitted ? (
-              <div className="h-full flex flex-col items-center justify-center text-center min-h-[300px]">
-                <div className="w-16 h-16 bg-brand-cyan/10 rounded-full flex items-center justify-center mb-6 border border-brand-cyan/20">
+              <motion.div 
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="h-full flex flex-col items-center justify-center text-center w-full"
+              >
+                <motion.div 
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
+                  className="w-16 h-16 bg-brand-cyan/10 rounded-full flex items-center justify-center mb-6 border border-brand-cyan/20"
+                >
                   <Check className="text-brand-cyan w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">Transmission Received</h3>
-                <p className="text-brand-gray/60 mb-8">Our team is reviewing your submission.</p>
-                <button 
+                </motion.div>
+                
+                <motion.h3 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-xl font-bold text-white mb-2"
+                >
+                  Transmission Received
+                </motion.h3>
+                
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-brand-gray/60 mb-8"
+                >
+                  Our team is reviewing your submission.
+                </motion.p>
+                
+                <motion.button 
                   onClick={() => setSubmitted(false)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.4 }}
                   className="text-sm text-brand-cyan hover:text-white transition-colors uppercase tracking-widest font-semibold"
                 >
                   Reset Form
-                </button>
-              </div>
+                </motion.button>
+              </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <motion.form 
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                onSubmit={handleSubmit} 
+                className="space-y-4 w-full"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label htmlFor="name" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Name</label>
@@ -116,8 +158,9 @@ const CallToAction: React.FC = () => {
                   {isSubmitting ? 'Processing...' : 'Submit Application'}
                   {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
                 </button>
-              </form>
+              </motion.form>
             )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
