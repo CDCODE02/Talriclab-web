@@ -8,6 +8,7 @@ const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [logoLoaded, setLogoLoaded] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
@@ -79,15 +80,21 @@ const Hero: React.FC = () => {
               className="flex items-center gap-3 group relative z-50"
               onClick={(e) => smoothScrollTo(e, '#home')}
             >
-            <img 
-                src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
-                alt="Talric Labs Logo" 
-                width="150"
-                height="48"
-                // @ts-ignore
-                fetchPriority="high"
-                className="w-auto object-contain rounded-md h-12 transition-all duration-300"
-            />
+            <div className={`relative transition-opacity duration-500 ${logoLoaded ? 'opacity-100' : 'opacity-0'}`}>
+                <img 
+                    src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
+                    alt="Talric Labs Logo" 
+                    width="150"
+                    height="48"
+                    // @ts-ignore
+                    fetchPriority="high"
+                    onLoad={() => setLogoLoaded(true)}
+                    className="w-auto object-contain rounded-md h-12"
+                />
+            </div>
+            {/* Placeholder to prevent layout shift if image is slow, though width/height attrs help */}
+            {!logoLoaded && <div className="absolute left-0 top-0 w-[150px] h-12 bg-white/5 rounded-md animate-pulse"></div>}
+            
             <span className="font-bold tracking-wide text-white transition-all duration-300 group-hover:text-brand-cyan text-xl">
                 Talric
             </span>

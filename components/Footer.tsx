@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Twitter, Linkedin, Mail } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Footer: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const [logoLoaded, setLogoLoaded] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -39,7 +40,8 @@ const Footer: React.FC = () => {
             height="48"
             loading="lazy"
             decoding="async"
-            className="h-10 w-auto object-contain rounded-sm opacity-90 hover:opacity-100 transition-opacity"
+            onLoad={() => setLogoLoaded(true)}
+            className={`h-10 w-auto object-contain rounded-sm transition-opacity duration-500 hover:opacity-100 ${logoLoaded ? 'opacity-90' : 'opacity-0'}`}
           />
           <span className="text-base font-bold tracking-widest text-white/90">TALRIC LABS</span>
         </div>
