@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AboutGrid from './ui/AboutGrid';
-import AnimatedShaderBackground from './ui/animated-shader-background';
 
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,19 +34,23 @@ const About: React.FC = () => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         
-        {/* Left Column: Shader Visualization */}
+        {/* Left Column: Visual */}
         <div className={`relative h-full min-h-[500px] w-full rounded-2xl overflow-hidden transition-all duration-1000 ease-out bg-brand-navy-light/50 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
           }`}>
             
-            {/* Animated Shader */}
+            {/* Static Image Background */}
             <div className="absolute inset-0 z-0">
-               <AnimatedShaderBackground />
+               <img 
+                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop" 
+                alt="Abstract geometric structure representing venture building" 
+                className="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-1000 ease-out"
+               />
             </div>
 
             {/* Overlays for texture/integration */}
-            <div className="absolute inset-0 bg-brand-navy/10 mix-blend-overlay z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-transparent to-transparent z-10 pointer-events-none opacity-80" />
+            <div className="absolute inset-0 bg-brand-navy/30 mix-blend-multiply z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/20 to-transparent z-10 pointer-events-none" />
             
             {/* Decorative Border */}
             <div className="absolute inset-0 border border-white/10 rounded-2xl z-20 pointer-events-none" />
