@@ -17,6 +17,18 @@ const Hero: React.FC = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
+            
+            // Sync URL with scroll position
+            // Use replaceState to update URL without cluttering history stack during scroll
+            const newHash = `#${entry.target.id}`;
+            if (window.location.hash !== newHash) {
+                try {
+                    window.history.replaceState(null, '', newHash);
+                } catch (e) {
+                    // Fallback for sandboxed environments where history API is restricted
+                    console.debug('History replace blocked in sandbox', e);
+                }
+            }
           }
         });
       },

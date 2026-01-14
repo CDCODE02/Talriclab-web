@@ -8,6 +8,17 @@ export function cn(...inputs: ClassValue[]) {
 
 export const smoothScrollTo = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string, delay: number = 0) => {
   e.preventDefault();
+  
+  // Update URL hash immediately when clicking navigation links
+  if (href.startsWith('#')) {
+      try {
+          window.history.pushState(null, '', href);
+      } catch (e) {
+          // Fallback for sandboxed environments where history API is restricted
+          console.debug('History update blocked in sandbox', e);
+      }
+  }
+
   const targetId = href.replace('#', '');
   const element = document.getElementById(targetId);
   
