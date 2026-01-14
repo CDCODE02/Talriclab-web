@@ -3,7 +3,6 @@ import { ChevronRight, Menu, X } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -17,11 +16,8 @@ const Hero: React.FC = () => {
 
     const handleScroll = () => {
       const scrollPos = window.scrollY;
-      setIsScrolled(scrollPos > 20);
 
       // Parallax effects
-      // Use requestAnimationFrame for smoother performance if needed, 
-      // but direct updates are usually fine for simple transforms.
       if (gridRef.current) {
         gridRef.current.style.transform = `translateY(${scrollPos * 0.25}px)`;
       }
@@ -90,21 +86,17 @@ const Hero: React.FC = () => {
         />
       </div>
 
-      {/* Navigation / Header Area */}
+      {/* Navigation / Header Area - Changed from fixed to absolute */}
       <div 
-        className={`fixed top-0 left-0 w-full z-50 px-6 md:px-12 flex justify-between items-center transition-all duration-300 ${
-          isScrolled 
-            ? 'py-4 bg-brand-navy/80 backdrop-blur-md border-b border-white/5 shadow-lg' 
-            : 'py-8 bg-transparent'
-        }`}
+        className="absolute top-0 left-0 w-full z-50 px-6 md:px-12 flex justify-between items-center py-8 bg-transparent"
       >
         <a href="#home" className="flex items-center gap-3 group relative z-50">
            <img 
              src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
              alt="Talric Labs Logo" 
-             className={`w-auto object-contain rounded-md transition-all duration-300 ${isScrolled ? 'h-10' : 'h-12'}`}
+             className="w-auto object-contain rounded-md h-12 transition-all duration-300"
            />
-           <span className={`font-bold tracking-wide text-white transition-all duration-300 group-hover:text-brand-cyan ${isScrolled ? 'text-lg' : 'text-xl'}`}>
+           <span className="font-bold tracking-wide text-white transition-all duration-300 group-hover:text-brand-cyan text-xl">
              Talric
            </span>
         </a>
