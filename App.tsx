@@ -2,9 +2,10 @@ import React, { Suspense, lazy } from 'react';
 import Hero from './components/Hero';
 import { FloatingNav } from './components/ui/floating-navbar';
 import { Home, Info, Layers, Target, Mail } from 'lucide-react';
-import AnimatedShaderBackground from './components/ui/animated-shader-background';
 
-// Lazy load below-the-fold components to speed up initial render
+// Lazy load heavy components
+// Deferring the shader background removes 'three.js' from the critical path
+const AnimatedShaderBackground = lazy(() => import('./components/ui/animated-shader-background'));
 const About = lazy(() => import('./components/About'));
 const WhatWeDo = lazy(() => import('./components/WhatWeDo'));
 const Focus = lazy(() => import('./components/Focus'));
@@ -26,7 +27,9 @@ const App: React.FC = () => {
       {/* Global Background Layer */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 opacity-20 mix-blend-screen">
-           <AnimatedShaderBackground />
+           <Suspense fallback={<div className="w-full h-full bg-brand-navy" />}>
+              <AnimatedShaderBackground />
+           </Suspense>
         </div>
       </div>
 

@@ -82,6 +82,10 @@ const Hero: React.FC = () => {
             <img 
                 src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
                 alt="Talric Labs Logo" 
+                width="150"
+                height="48"
+                // @ts-ignore
+                fetchPriority="high"
                 className="w-auto object-contain rounded-md h-12 transition-all duration-300"
             />
             <span className="font-bold tracking-wide text-white transition-all duration-300 group-hover:text-brand-cyan text-xl">
