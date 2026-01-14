@@ -42,10 +42,17 @@ const About: React.FC = () => {
             {/* Static Image Background - Optimized Size */}
             <div className="absolute inset-0 z-0">
                <img 
-                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1080&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1080&auto=format&fit=crop"
+                srcSet="
+                  https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=640&auto=format&fit=crop 640w,
+                  https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1080&auto=format&fit=crop 1080w,
+                  https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1920&auto=format&fit=crop 1920w
+                "
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 alt="Abstract geometric structure representing venture building" 
                 className="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-1000 ease-out"
                 loading="lazy"
+                decoding="async"
                />
             </div>
 

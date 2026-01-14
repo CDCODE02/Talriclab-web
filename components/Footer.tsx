@@ -35,6 +35,10 @@ const Footer: React.FC = () => {
           <img 
             src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
             alt="Talric Labs Logo" 
+            width="150"
+            height="48"
+            loading="lazy"
+            decoding="async"
             className="h-10 w-auto object-contain rounded-sm opacity-90 hover:opacity-100 transition-opacity"
           />
           <span className="text-base font-bold tracking-widest text-white/90">TALRIC LABS</span>
