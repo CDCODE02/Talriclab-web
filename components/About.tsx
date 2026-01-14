@@ -35,33 +35,26 @@ const About: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         
         {/* Left Column: Visual */}
-        <div className={`relative h-full min-h-[500px] w-full rounded-2xl overflow-hidden transition-all duration-1000 ease-out bg-brand-navy-light/50 ${
+        <div className={`relative h-full min-h-[400px] w-full rounded-2xl overflow-hidden transition-all duration-1000 ease-out bg-brand-navy-light/30 border border-white/5 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
           }`}>
             
-            {/* Static Image Background - Optimized Size */}
-            <div className="absolute inset-0 z-0">
+            {/* Image Container - Contained and Padded */}
+            <div className="absolute inset-0 z-0 p-8 flex items-center justify-center">
                <img 
-                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1080&auto=format&fit=crop"
-                srcSet="
-                  https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=640&auto=format&fit=crop 640w,
-                  https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1080&auto=format&fit=crop 1080w,
-                  https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1920&auto=format&fit=crop 1920w
-                "
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                src="https://i.ibb.co/xKFr9Pr6/talricabout.png"
                 alt="Abstract geometric structure representing venture building" 
-                className="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-1000 ease-out"
+                className="w-full h-full object-contain hover:scale-105 transition-transform duration-1000 ease-out drop-shadow-2xl"
                 loading="lazy"
                 decoding="async"
                />
             </div>
 
-            {/* Overlays for texture/integration */}
-            <div className="absolute inset-0 bg-brand-navy/30 mix-blend-multiply z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/20 to-transparent z-10 pointer-events-none" />
+            {/* Subtle Gradient Overlay - Adjusted to not obscure image */}
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-transparent to-transparent z-10 pointer-events-none" />
             
             {/* Decorative Border */}
-            <div className="absolute inset-0 border border-white/10 rounded-2xl z-20 pointer-events-none" />
+            <div className="absolute inset-0 border border-white/5 rounded-2xl z-20 pointer-events-none" />
             <div className="absolute -bottom-1 -right-1 w-24 h-24 border-r-2 border-b-2 border-brand-cyan/30 rounded-br-2xl z-20 pointer-events-none" />
             <div className="absolute -top-1 -left-1 w-24 h-24 border-t-2 border-l-2 border-brand-cyan/30 rounded-tl-2xl z-20 pointer-events-none" />
         </div>
