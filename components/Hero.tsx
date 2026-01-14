@@ -1,33 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight, Menu, X } from 'lucide-react';
+import { FloatingPaths } from './ui/background-paths';
+import { motion } from 'framer-motion';
 
 const Hero: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Refs for parallax elements
-  const gridRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    // Trigger animation after mount
     const timer = setTimeout(() => setIsLoaded(true), 100);
 
-    const handleScroll = () => {
-      const scrollPos = window.scrollY;
-
-      // Parallax effects
-      if (gridRef.current) {
-        gridRef.current.style.transform = `translateY(${scrollPos * 0.25}px)`;
-      }
-      if (glowRef.current) {
-        // Maintain the horizontal centering (-50%) while translating vertically
-        glowRef.current.style.transform = `translate(-50%, ${scrollPos * 0.15}px)`;
-      }
-    };
-
-    // Intersection Observer for Active Link highlighting
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -43,9 +26,7 @@ const Hero: React.FC = () => {
       observer.observe(section);
     });
 
-    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
       clearTimeout(timer);
     };
@@ -61,32 +42,23 @@ const Hero: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  // New text animation logic for "Build the Future Faster."
+  const titleWords = ["Build", "the", "Future", "Faster."];
+
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-12 border-b border-white/5 bg-brand-navy overflow-hidden">
       
-      {/* Background Elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Subtle Grid */}
-        <div 
-          ref={gridRef}
-          className="absolute inset-0 opacity-20 will-change-transform" 
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
-            backgroundSize: '40px 40px',
-            maskImage: 'radial-gradient(circle at center, black, transparent 80%)',
-            WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)'
-          }}
-        />
-        
-        {/* Top Spotlight Glow */}
-        <div 
-          ref={glowRef}
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-cyan/20 rounded-full blur-[120px] opacity-40 mix-blend-screen will-change-transform" 
+      {/* NEW BACKGROUND: Floating Paths */}
+      <div className="absolute inset-0 z-0">
+         <FloatingPaths position={1} />
+         <FloatingPaths position={-1} />
+         {/* Top Spotlight Glow (kept from original for brand consistency) */}
+         <div 
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-cyan/20 rounded-full blur-[120px] opacity-40 mix-blend-screen pointer-events-none" 
         />
       </div>
 
-      {/* Navigation / Header Area - Changed from fixed to absolute */}
+      {/* Navigation / Header Area */}
       <div 
         className="absolute top-0 left-0 w-full z-50 px-6 md:px-12 flex justify-between items-center py-8 bg-transparent"
       >
@@ -157,7 +129,6 @@ const Hero: React.FC = () => {
                 {link.name}
               </a>
             ))}
-            {/* Mobile CTA */}
              <a 
                href="#contact"
                onClick={() => setIsMenuOpen(false)}
@@ -181,25 +152,53 @@ const Hero: React.FC = () => {
           System Status: Operational
         </div>
 
-        {/* Headline with Staggered Animation */}
+        {/* Headline with Spring Animation */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.1] mb-8">
-          <span className={`inline-block transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Build the
-          </span>
-          {' '}
-          <br className="md:hidden" />
-          <span className={`inline-block text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 transition-all duration-1000 delay-200 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Future Faster.
-          </span>
+          {titleWords.map((word, wordIndex) => (
+              <span
+                  key={wordIndex}
+                  className="inline-block mr-3 last:mr-0"
+              >
+                  {word.split("").map((letter, letterIndex) => (
+                      <motion.span
+                          key={`${wordIndex}-${letterIndex}`}
+                          initial={{ y: 50, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{
+                              delay: wordIndex * 0.15 + letterIndex * 0.03,
+                              type: "spring",
+                              stiffness: 100,
+                              damping: 20,
+                          }}
+                          className={`inline-block ${
+                             // Apply gradient to "Faster." or just white for clean look
+                             word === "Faster." ? "text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40" : "text-white"
+                          }`}
+                      >
+                          {letter}
+                      </motion.span>
+                  ))}
+              </span>
+          ))}
         </h1>
         
-        <p className={`text-lg md:text-xl text-brand-gray/60 max-w-2xl font-light leading-relaxed mb-12 transition-all duration-1000 delay-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="text-lg md:text-xl text-brand-gray/60 max-w-2xl font-light leading-relaxed mb-12"
+        >
           A thesis-driven venture studio architecting category-defining companies. 
           We bridge the gap between <span className="text-brand-cyan">raw ambition</span> and <span className="text-white">proven execution</span>.
-        </p>
+        </motion.p>
 
         {/* CTA Buttons */}
-        <div className={`flex flex-col sm:flex-row gap-4 w-full justify-center transition-all duration-1000 delay-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <motion.div 
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 1.2, duration: 1 }}
+           className="flex flex-col sm:flex-row gap-4 w-full justify-center"
+        >
           <a href="#contact" className="group relative px-8 py-4 bg-brand-cyan text-brand-navy font-bold text-sm tracking-wide rounded-sm overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
              <span className="relative z-10 flex items-center gap-2">
                START BUILDING
@@ -210,14 +209,19 @@ const Hero: React.FC = () => {
           <a href="#about" className="px-8 py-4 bg-transparent border border-white/10 text-white font-medium text-sm tracking-wide rounded-sm hover:bg-white/5 transition-colors">
              OUR THESIS
           </a>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Scroll Indicator */}
-      <div className={`absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50 transition-all duration-1000 delay-700 ${isLoaded ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+      >
         <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-gray">Scroll</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-brand-cyan to-transparent"></div>
-      </div>
+      </motion.div>
     </section>
   );
 };
