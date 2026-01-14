@@ -59,63 +59,63 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Navigation / Header Area */}
-      <div 
-        className="absolute top-0 left-0 w-full z-50 px-6 md:px-12 flex justify-between items-center py-8 bg-transparent"
-      >
-        <a href="#home" className="flex items-center gap-3 group relative z-50">
-           <img 
-             src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
-             alt="Talric Labs Logo" 
-             className="w-auto object-contain rounded-md h-12 transition-all duration-300"
-           />
-           <span className="font-bold tracking-wide text-white transition-all duration-300 group-hover:text-brand-cyan text-xl">
-             Talric
-           </span>
-        </a>
-        
-        {/* Centered Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href.substring(1);
-            return (
-              <a 
-                key={link.name} 
-                href={link.href} 
-                className={`group relative tracking-wide transition-all duration-300 ${
-                  isActive 
-                    ? 'text-base font-bold text-white' 
-                    : 'text-sm font-medium text-brand-gray/70 hover:text-white'
-                }`}
-              >
-                {link.name}
-                <span className={`absolute -bottom-1.5 left-0 w-full bg-brand-cyan rounded-full transition-all duration-300 origin-left ${
-                  isActive 
-                    ? 'scale-x-100 h-[3px] shadow-[0_0_8px_rgba(0,209,255,0.5)]' 
-                    : 'scale-x-0 h-0.5 group-hover:scale-x-100'
-                }`} />
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Right Side Actions */}
-        <div className="flex items-center gap-4 relative z-50">
-            <a 
-              href="#contact" 
-              className="hidden md:flex items-center justify-center w-11 h-11 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-white transition-all duration-300 hover:bg-brand-cyan hover:text-brand-navy hover:border-brand-cyan hover:scale-105 hover:shadow-[0_0_20px_rgba(0,209,255,0.3)] group"
-              aria-label="Get in touch"
-            >
-                <Mail className="w-5 h-5 group-hover:animate-pulse" />
+      <div className="absolute top-0 left-0 w-full z-50 flex justify-center py-8 bg-transparent">
+        <div className="w-full max-w-5xl px-6 flex justify-between items-center relative">
+            <a href="#home" className="flex items-center gap-3 group relative z-50">
+            <img 
+                src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
+                alt="Talric Labs Logo" 
+                className="w-auto object-contain rounded-md h-12 transition-all duration-300"
+            />
+            <span className="font-bold tracking-wide text-white transition-all duration-300 group-hover:text-brand-cyan text-xl">
+                Talric
+            </span>
             </a>
+            
+            {/* Centered Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            {navLinks.map((link) => {
+                const isActive = activeSection === link.href.substring(1);
+                return (
+                <a 
+                    key={link.name} 
+                    href={link.href} 
+                    className={`group relative tracking-wide transition-all duration-300 ${
+                    isActive 
+                        ? 'text-base font-bold text-white' 
+                        : 'text-sm font-medium text-brand-gray/70 hover:text-white'
+                    }`}
+                >
+                    {link.name}
+                    <span className={`absolute -bottom-1.5 left-0 w-full bg-brand-cyan rounded-full transition-all duration-300 origin-left ${
+                    isActive 
+                        ? 'scale-x-100 h-[3px] shadow-[0_0_8px_rgba(0,209,255,0.5)]' 
+                        : 'scale-x-0 h-0.5 group-hover:scale-x-100'
+                    }`} />
+                </a>
+                );
+            })}
+            </nav>
 
-            {/* Mobile Hamburger */}
-            <button 
-            className="md:hidden text-white hover:text-brand-cyan transition-colors"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-            >
-            {isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
-            </button>
+            {/* Right Side Actions */}
+            <div className="flex items-center gap-4 relative z-50">
+                <a 
+                href="#contact" 
+                className="hidden md:flex items-center justify-center w-11 h-11 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-white transition-all duration-300 hover:bg-brand-cyan hover:text-brand-navy hover:border-brand-cyan hover:scale-105 hover:shadow-[0_0_20px_rgba(0,209,255,0.3)] group"
+                aria-label="Get in touch"
+                >
+                    <Mail className="w-5 h-5 group-hover:animate-pulse" />
+                </a>
+
+                {/* Mobile Hamburger */}
+                <button 
+                className="md:hidden text-white hover:text-brand-cyan transition-colors"
+                onClick={toggleMenu}
+                aria-label="Toggle menu"
+                >
+                {isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+                </button>
+            </div>
         </div>
       </div>
 
