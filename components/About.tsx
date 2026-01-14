@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import AboutGrid from './ui/AboutGrid';
 
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -57,6 +58,12 @@ const About: React.FC = () => {
               </React.Fragment>
             ))}
           </p>
+
+          <div className={`mt-16 transition-all duration-1000 delay-500 ease-out ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <AboutGrid />
+          </div>
         </div>
       </div>
     </section>
