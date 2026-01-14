@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Menu, X } from 'lucide-react';
+import { ChevronRight, Menu, X, Mail } from 'lucide-react';
 import { FloatingPaths } from './ui/background-paths';
 import { motion } from 'framer-motion';
 
@@ -100,8 +100,12 @@ const Hero: React.FC = () => {
 
         {/* Right Side Actions */}
         <div className="flex items-center gap-4 relative z-50">
-            <a href="#contact" className="hidden md:block text-xs font-mono text-brand-navy px-5 py-2 bg-white hover:bg-brand-cyan transition-colors rounded-sm font-bold tracking-wider">
-                GET IN TOUCH
+            <a 
+              href="#contact" 
+              className="hidden md:flex items-center justify-center w-11 h-11 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-white transition-all duration-300 hover:bg-brand-cyan hover:text-brand-navy hover:border-brand-cyan hover:scale-105 hover:shadow-[0_0_20px_rgba(0,209,255,0.3)] group"
+              aria-label="Get in touch"
+            >
+                <Mail className="w-5 h-5 group-hover:animate-pulse" />
             </a>
 
             {/* Mobile Hamburger */}
