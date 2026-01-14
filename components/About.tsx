@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AboutGrid from './ui/AboutGrid';
+import AnimatedShaderBackground from './ui/animated-shader-background';
 
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -34,24 +35,24 @@ const About: React.FC = () => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         
-        {/* Left Column: Image */}
-        <div className={`relative h-full min-h-[500px] w-full rounded-2xl overflow-hidden transition-all duration-1000 ease-out ${
+        {/* Left Column: Shader Visualization */}
+        <div className={`relative h-full min-h-[500px] w-full rounded-2xl overflow-hidden transition-all duration-1000 ease-out bg-brand-navy-light/50 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
           }`}>
-            {/* Image Overlay */}
-            <div className="absolute inset-0 bg-brand-navy/30 mix-blend-multiply z-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-transparent to-transparent z-10" />
             
-            <img 
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop" 
-              alt="Talric Labs Architecture" 
-              className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-transform duration-[2s] ease-in-out"
-            />
+            {/* Animated Shader */}
+            <div className="absolute inset-0 z-0">
+               <AnimatedShaderBackground />
+            </div>
 
+            {/* Overlays for texture/integration */}
+            <div className="absolute inset-0 bg-brand-navy/10 mix-blend-overlay z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-transparent to-transparent z-10 pointer-events-none opacity-80" />
+            
             {/* Decorative Border */}
-            <div className="absolute inset-0 border border-white/10 rounded-2xl z-20" />
-            <div className="absolute -bottom-1 -right-1 w-24 h-24 border-r-2 border-b-2 border-brand-cyan/30 rounded-br-2xl z-20" />
-            <div className="absolute -top-1 -left-1 w-24 h-24 border-t-2 border-l-2 border-brand-cyan/30 rounded-tl-2xl z-20" />
+            <div className="absolute inset-0 border border-white/10 rounded-2xl z-20 pointer-events-none" />
+            <div className="absolute -bottom-1 -right-1 w-24 h-24 border-r-2 border-b-2 border-brand-cyan/30 rounded-br-2xl z-20 pointer-events-none" />
+            <div className="absolute -top-1 -left-1 w-24 h-24 border-t-2 border-l-2 border-brand-cyan/30 rounded-tl-2xl z-20 pointer-events-none" />
         </div>
 
         {/* Right Column: Content */}
