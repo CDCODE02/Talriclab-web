@@ -49,6 +49,7 @@ const Hero: React.FC = () => {
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
+    { name: 'Vision', href: '#vision' },
     { name: 'Methodology', href: '#methodology' },
     { name: 'Focus', href: '#focus' },
     { name: 'Contact', href: '#contact' },
