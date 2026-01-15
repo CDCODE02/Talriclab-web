@@ -189,7 +189,7 @@ const Hero: React.FC = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-cyan"></span>
           </span>
-          System Status: Operational
+          Venture Studio & Innovation Lab
         </div>
 
         {/* Headline with Refined Spring Animation */}
