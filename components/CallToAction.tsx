@@ -40,14 +40,7 @@ const CallToAction: React.FC = () => {
             <p className="text-lg text-brand-gray/60 mb-8 max-w-md">
               We are always looking for obsessive founders and breakthrough ideas. If you have the vision, we have the engine.
             </p>
-            <div className="flex items-center gap-4 text-sm font-mono text-brand-gray/40">
-               <div className="flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-gray-800 border border-brand-navy"></div>
-                  <div className="w-8 h-8 rounded-full bg-gray-700 border border-brand-navy"></div>
-                  <div className="w-8 h-8 rounded-full bg-gray-600 border border-brand-navy"></div>
-               </div>
-               <span>Join 50+ Founders</span>
-            </div>
+            
           </div>
 
           {/* Form Side */}
