@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
           <a href="#" className="group p-2 rounded-full hover:bg-white/5 transition-all duration-300" aria-label="LinkedIn">
             <Linkedin className="w-5 h-5 text-brand-gray/50 group-hover:text-brand-cyan group-hover:scale-110 transition-all" />
           </a>
-          <a href="mailto:hello@talriclabs.com" className="group p-2 rounded-full hover:bg-white/5 transition-all duration-300" aria-label="Email">
+          <a href="mailto:talriclab@gmail.com" className="group p-2 rounded-full hover:bg-white/5 transition-all duration-300" aria-label="Email">
             <Mail className="w-5 h-5 text-brand-gray/50 group-hover:text-brand-cyan group-hover:scale-110 transition-all" />
           </a>
         </div>
