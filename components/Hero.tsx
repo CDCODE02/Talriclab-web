@@ -267,10 +267,10 @@ const Hero: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+        className="absolute bottom-1 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-gray">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-brand-cyan to-transparent"></div>
+        <div className="w-[1px] h-8 bg-gradient-to-b from-brand-cyan to-transparent"></div>
       </motion.div>
     </section>
   );
