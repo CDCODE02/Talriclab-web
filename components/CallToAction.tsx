@@ -10,12 +10,38 @@ const CallToAction: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setFormState({ name: '', email: '', message: '' });
-    }, 1500);
+    
+    // Use FormSubmit.co for backend-less email submission
+    fetch("https://formsubmit.co/ajax/talriclab@gmail.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: formState.name,
+            email: formState.email,
+            message: formState.message,
+            _subject: `New Application from ${formState.name}`
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            setSubmitted(true);
+            setFormState({ name: '', email: '', message: '' });
+        } else {
+             // Fallback to mailto if service is down/blocked
+             window.location.href = `mailto:talriclab@gmail.com?subject=New Application from ${encodeURIComponent(formState.name)}&body=${encodeURIComponent(formState.message)}`;
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        // Fallback to mailto
+        window.location.href = `mailto:talriclab@gmail.com?subject=New Application from ${encodeURIComponent(formState.name)}&body=${encodeURIComponent(formState.message)}`;
+    })
+    .finally(() => {
+        setIsSubmitting(false);
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -148,7 +174,7 @@ const CallToAction: React.FC = () => {
                   disabled={isSubmitting}
                   className="w-full mt-2 bg-white text-brand-navy font-bold py-3 px-6 rounded-lg hover:bg-brand-cyan hover:shadow-[0_0_15px_rgba(0,209,255,0.4)] transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-wide"
                 >
-                  {isSubmitting ? 'Processing...' : 'Submit Application'}
+                  {isSubmitting ? 'Sending...' : 'Submit Application'}
                   {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
                 </button>
               </motion.form>
