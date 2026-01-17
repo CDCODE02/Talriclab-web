@@ -64,7 +64,7 @@ const CallToAction: React.FC = () => {
               Ready to <span className="text-brand-cyan">Execute?</span>
             </h2>
             <p className="text-lg text-brand-gray/60 mb-8 max-w-md">
-              We are looking for passionate founders and breakthrough ideas. If you have the vision, we have the engine.
+              We are looking for passionate founders and breakthrough ideas, If you have the vision, we have the engine.
             </p>
             
           </div>
