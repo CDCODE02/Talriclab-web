@@ -26,7 +26,7 @@ const Vision: React.FC = () => {
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-white">What Matters</span>
                     </h3>
                     <p className="text-lg text-brand-gray/80 leading-relaxed mb-8">
-                        To build a studio where ideas become real products — scalable, useful, and impactful across Web2 and Web3.
+                        To build a studio where ideas become real products that's scalable, useful, and impactful across Web2 and Web3.
                     </p>
                     <a 
                         href="#contact" 
@@ -100,12 +100,12 @@ const Vision: React.FC = () => {
                     <GoalItem 
                         icon={RefreshCw}
                         title="Build Practical Systems"
-                        description="Design scalable systems that support growth and long-term use."
+                        description="Design scalable systems that support growth and long term use."
                     />
                     <GoalItem 
                         icon={ShieldCheck}
                         title="Enable Validation"
-                        description="Test ideas quickly through hackathons, grants, pilots, and real-world deployment."
+                        description="Test ideas quickly through hackathons, grants, pilots, and real world deployment."
                     />
                     <GoalItem 
                         icon={BarChart3}
