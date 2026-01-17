@@ -40,7 +40,7 @@ const Focus: React.FC = () => {
           </h3>
         </div>
         <p className="text-brand-gray/50 max-w-md mt-6 md:mt-0 text-sm leading-relaxed">
-           Talric Labs focuses on high-leverage opportunities where technical innovation meets real-world impact.
+           Talric Labs focuses on high leverage opportunities where technical innovation meets real world impact.
         </p>
       </div>
 
@@ -52,7 +52,7 @@ const Focus: React.FC = () => {
         />
         <FocusCard 
           icon={Globe}
-          title="Next-Gen FinTech"
+          title="Next Gen FinTech"
           tags={['DeFi Protocols', 'Payments', 'Embedded Finance']}
         />
         <FocusCard 
