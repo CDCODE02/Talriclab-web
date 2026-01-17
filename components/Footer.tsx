@@ -1,10 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Twitter, Linkedin, Mail } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Footer: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
-  const [logoLoaded, setLogoLoaded] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -32,18 +31,9 @@ const Footer: React.FC = () => {
 
       <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
         {/* Brand */}
-        <div className="flex items-center gap-3">
-          <img 
-            src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
-            alt="Talric Labs Logo" 
-            width="150"
-            height="48"
-            loading="lazy"
-            decoding="async"
-            onLoad={() => setLogoLoaded(true)}
-            className={`h-10 w-auto object-contain rounded-sm transition-opacity duration-500 hover:opacity-100 ${logoLoaded ? 'opacity-90' : 'opacity-0'}`}
-          />
-          <span className="text-base font-bold tracking-widest text-white/90">TALRIC LABS</span>
+        <div className="flex flex-col items-center md:items-start text-center md:text-left gap-2">
+          <h3 className="text-xl font-bold text-white tracking-tight">Talric Labs</h3>
+          <p className="text-sm text-brand-gray/50 font-light max-w-xs">Turning ideas into startups that solve real-world problems.</p>
         </div>
 
         {/* Contact/Socials */}
@@ -61,7 +51,7 @@ const Footer: React.FC = () => {
 
         {/* Copyright */}
         <div className="text-xs text-brand-gray/30 font-mono tracking-wide">
-          © {new Date().getFullYear()} Talric Labs. All rights reserved.
+          © 2026 Talric Labs. All rights reserved.
         </div>
       </div>
     </footer>
