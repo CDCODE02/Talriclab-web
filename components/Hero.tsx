@@ -230,7 +230,7 @@ const Hero: React.FC = () => {
           transition={{ delay: 1, duration: 1 }}
           className="text-lg md:text-xl text-brand-gray/60 max-w-2xl font-light leading-relaxed mb-12"
         >
-          Talric Labs is a venture studio and innovation lab engineering ideas into startups that solve real-world problems across Web2 and Web3.
+          Talric Labs is a venture studio and innovation lab engineering ideas into startups that solve real world problems across Web2 and Web3.
         </motion.p>
 
         {/* CTA Buttons */}
