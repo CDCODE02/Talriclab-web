@@ -22,17 +22,17 @@ const Vision: React.FC = () => {
                 <div>
                     <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-cyan mb-4">Our Vision</h2>
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-8">
-                        Building the <br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-white">Launchpad for Innovation.</span>
+                        Building <br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-white">What Matters</span>
                     </h3>
                     <p className="text-lg text-brand-gray/80 leading-relaxed mb-8">
-                        We decided to create a software framework that is both accessible and easy to set up. Our mission is to provide a comprehensive palette of tools with the goal of improving the performance of the founding teams who use our solution.
+                        To build a studio where ideas become real products — scalable, useful, and impactful across Web2 and Web3.
                     </p>
                     <a 
                         href="#contact" 
                         className="inline-flex items-center gap-2 px-6 py-3 bg-brand-cyan text-brand-navy font-bold rounded-lg hover:bg-white transition-all shadow-[0_0_20px_rgba(0,209,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]"
                     >
-                        Start Building <ArrowRight className="w-4 h-4" />
+                        Get Started <ArrowRight className="w-4 h-4" />
                     </a>
                 </div>
 
@@ -67,8 +67,8 @@ const Vision: React.FC = () => {
                                      <Zap className="w-4 h-4 text-brand-cyan" />
                                  </div>
                                  <div className="text-xs">
-                                     <div className="text-white font-bold">Velocity</div>
-                                     <div className="text-brand-cyan">Maximized</div>
+                                     <div className="text-white font-bold">Maximum</div>
+                                     <div className="text-brand-cyan">Impact</div>
                                  </div>
                              </div>
                          </motion.div>
@@ -88,29 +88,29 @@ const Vision: React.FC = () => {
             
             <div className="bg-brand-cyan pt-8 pb-24 px-6 md:px-12 lg:px-24 relative z-0">
                 <div className="text-center mb-16 relative z-10">
-                     <h3 className="text-2xl md:text-3xl font-bold text-brand-navy">Our goal is to:</h3>
+                     <h3 className="text-2xl md:text-3xl font-bold text-brand-navy">Our Goal</h3>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 max-w-7xl mx-auto">
                     <GoalItem 
                         icon={Zap}
                         title="Simplify Execution"
-                        description="Simplify the venture creation process to get to market faster."
+                        description="Turn ideas into working products with clear and efficient execution."
                     />
                     <GoalItem 
                         icon={RefreshCw}
-                        title="Improve Automation"
-                        description="Improve automation across legal, finance, and back-office tasks."
+                        title="Build Practical Systems"
+                        description="Design scalable systems that support growth and long-term use."
                     />
                     <GoalItem 
                         icon={ShieldCheck}
-                        title="Ensure Transparency"
-                        description="Ensure transparency and alignment for every founder and stakeholder."
+                        title="Enable Validation"
+                        description="Test ideas quickly through hackathons, grants, pilots, and real-world deployment."
                     />
                     <GoalItem 
                         icon={BarChart3}
-                        title="Eliminate Errors"
-                        description="Eliminate the errors that arise from manual execution and ad-hoc scaling."
+                        title="Create Impact"
+                        description="Focus on solutions that solve real problems and deliver measurable value."
                     />
                 </div>
             </div>
