@@ -5,7 +5,7 @@ const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const text = "Talric Labs is a thesis-driven venture studio. We don't just invest; we co-found. By combining rigorous operational frameworks with deep industry expertise, we de-risk early-stage company building.";
+  const text = "Talric Labs is a venture studio and innovation lab focused on turning vision into execution. We engineer ideas into startups that solve real-world problems by building practical, scalable products across Web2 and Web3. We don’t just generate ideas — we design systems, develop products, and launch startups with clear use cases and measurable impact.";
   const words = text.split(' ');
 
   useEffect(() => {
