@@ -57,7 +57,7 @@ const WhatWeDo: React.FC = () => {
           index="01"
           icon={Lightbulb}
           title="Ideation & Strategy"
-          description="We identify real-world problems, validate opportunities, and define clear execution paths before building a single line of code."
+          description="We identify real world problems, validate opportunities, and define clear execution paths before building a single line of code."
         />
         <Capability 
           index="02"
@@ -69,7 +69,7 @@ const WhatWeDo: React.FC = () => {
           index="03"
           icon={Rocket}
           title="Validate & Scale"
-          description="We provide operational support — including legal, finance, HR, and growth guidance — so founders can focus purely on execution and customer impact."
+          description="We provide operational support including legal, finance, HR, and growth guidance so founders can focus purely on execution and customer impact."
         />
       </div>
     </section>
