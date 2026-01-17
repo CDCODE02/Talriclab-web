@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
             />
             <h3 className="text-xl font-bold text-white tracking-tight">Talric Labs</h3>
           </div>
-          <p className="text-sm text-brand-gray/50 font-light max-w-xs">Turning ideas into startups that solve real-world problems.</p>
+          <p className="text-sm text-brand-gray/50 font-light max-w-xs">Turning ideas into startups that solve real world problems.</p>
         </div>
 
         {/* Contact/Socials */}
@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
 
         {/* Copyright */}
         <div className="text-xs text-brand-gray/30 font-mono tracking-wide">
-          © 2026 Talric Labs. All rights reserved.
+          © 2026 Talric Labs, All rights reserved.
         </div>
       </div>
     </footer>
