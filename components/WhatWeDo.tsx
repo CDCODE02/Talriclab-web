@@ -49,27 +49,27 @@ const WhatWeDo: React.FC = () => {
       
       <div className="relative z-10 mb-20">
         <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-cyan">Methodology</h2>
-        <h3 className="mt-4 text-3xl font-light text-white">How we build.</h3>
+        <h3 className="mt-4 text-3xl font-light text-white">How We Build</h3>
       </div>
 
       <div className="relative z-10 flex flex-col">
         <Capability 
           index="01"
           icon={Lightbulb}
-          title="Thesis & Ideation"
-          description="We identify market inefficiencies and validate opportunities through rigorous data analysis and expert networks before a single line of code is written."
+          title="Ideation & Strategy"
+          description="We identify real-world problems, validate opportunities, and define clear execution paths before building a single line of code."
         />
         <Capability 
           index="02"
           icon={Code2}
-          title="Product & Build"
-          description="Our internal engineering and design teams rapidly prototype and iterate Minimum Viable Products, ensuring technical excellence and product-market fit."
+          title="Product & Engineering"
+          description="Our teams design and develop practical, scalable Web2 and Web3 products with strong technical foundations."
         />
         <Capability 
           index="03"
           icon={Rocket}
-          title="Scale & Growth"
-          description="We provide the operational scaffolding—legal, finance, HR, and growth marketing—allowing founders to focus purely on execution and customer acquisition."
+          title="Validate & Scale"
+          description="We provide operational support — including legal, finance, HR, and growth guidance — so founders can focus purely on execution and customer impact."
         />
       </div>
     </section>
