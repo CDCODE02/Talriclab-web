@@ -57,8 +57,8 @@ const Hero: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // New text animation logic for "Build the Future Faster."
-  const titleWords = ["Build", "the", "Future", "Faster."];
+  // Updated text animation logic
+  const titleWords = ["Turning", "Vision", "into", "Execution"];
 
   return (
     <section id="home" className="relative z-10 min-h-screen flex flex-col items-center justify-center pt-20 pb-12 border-b border-white/5 bg-brand-navy overflow-hidden">
@@ -213,8 +213,8 @@ const Hero: React.FC = () => {
                               mass: 0.8
                           }}
                           className={`inline-block ${
-                             // Apply gradient to "Faster." or just white for clean look
-                             word === "Faster." ? "text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40" : "text-white"
+                             // Apply gradient to "Execution" for emphasis
+                             word === "Execution" ? "text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40" : "text-white"
                           }`}
                       >
                           {letter}
@@ -230,8 +230,7 @@ const Hero: React.FC = () => {
           transition={{ delay: 1, duration: 1 }}
           className="text-lg md:text-xl text-brand-gray/60 max-w-2xl font-light leading-relaxed mb-12"
         >
-          A thesis-driven venture studio architecting category-defining companies. 
-          We bridge the gap between <span className="text-brand-cyan">raw ambition</span> and <span className="text-white">proven execution</span>.
+          Talric Labs is a venture studio and innovation lab engineering ideas into startups that solve real-world problems across Web2 and Web3.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -247,7 +246,7 @@ const Hero: React.FC = () => {
             className="group relative px-8 py-4 bg-brand-cyan text-brand-navy font-bold text-sm tracking-wide rounded-sm overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
           >
              <span className="relative z-10 flex items-center gap-2">
-               START BUILDING
+               Get in Touch
                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
              </span>
           </a>
@@ -257,7 +256,7 @@ const Hero: React.FC = () => {
             onClick={(e) => smoothScrollTo(e, '#about', 200)}
             className="px-8 py-4 bg-transparent border border-white/10 text-white font-medium text-sm tracking-wide rounded-sm hover:bg-white/5 transition-colors"
           >
-             OUR THESIS
+             Our Approach
           </a>
         </motion.div>
       </div>
