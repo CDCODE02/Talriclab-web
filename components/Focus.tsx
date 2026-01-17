@@ -36,11 +36,11 @@ const Focus: React.FC = () => {
         <div>
           <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-cyan mb-4">Focus Areas</h2>
           <h3 className="text-3xl md:text-4xl font-bold text-white max-w-2xl">
-            Where we deploy capital & code.
+            Where We Build & Innovate
           </h3>
         </div>
         <p className="text-brand-gray/50 max-w-md mt-6 md:mt-0 text-sm leading-relaxed">
-           Our studio focuses on high-leverage opportunities where technical innovation meets scalable unit economics.
+           Talric Labs focuses on high-leverage opportunities where technical innovation meets real-world impact.
         </p>
       </div>
 
@@ -58,7 +58,7 @@ const Focus: React.FC = () => {
         <FocusCard 
           icon={Layers}
           title="Enterprise SaaS"
-          tags={['Vertical Software', 'B2B Marketplaces', 'Workflow Ops']}
+          tags={['Vertical Software', 'B2B Marketplaces', 'Workflow Optimization']}
         />
       </div>
     </section>
