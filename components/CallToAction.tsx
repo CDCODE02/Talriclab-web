@@ -61,16 +61,21 @@ const CallToAction: React.FC = () => {
           {/* Text Side */}
           <div className="flex flex-col justify-center">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-              Ready to <span className="text-brand-cyan">execute?</span>
+              Ready to <span className="text-brand-cyan">Execute?</span>
             </h2>
             <p className="text-lg text-brand-gray/60 mb-8 max-w-md">
-              We are always looking for obsessive founders and breakthrough ideas. If you have the vision, we have the engine.
+              We are looking for passionate founders and breakthrough ideas. If you have the vision, we have the engine.
             </p>
             
           </div>
 
           {/* Form Side */}
           <div className="bg-brand-navy/50 backdrop-blur-sm p-6 md:p-8 rounded-xl border border-white/10 min-h-[420px] flex flex-col justify-center">
+            
+            {!submitted && (
+              <h3 className="text-2xl font-bold text-white mb-6">Get in Touch</h3>
+            )}
+
             <AnimatePresence mode="wait">
             {submitted ? (
               <motion.div 
@@ -157,7 +162,7 @@ const CallToAction: React.FC = () => {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label htmlFor="message" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Brief</label>
+                  <label htmlFor="message" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Message / Brief</label>
                   <textarea
                     id="message"
                     name="message"
@@ -174,7 +179,7 @@ const CallToAction: React.FC = () => {
                   disabled={isSubmitting}
                   className="w-full mt-2 bg-white text-brand-navy font-bold py-3 px-6 rounded-lg hover:bg-brand-cyan hover:shadow-[0_0_15px_rgba(0,209,255,0.4)] transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-wide"
                 >
-                  {isSubmitting ? 'Sending...' : 'Submit Application'}
+                  {isSubmitting ? 'Sending...' : 'Submit'}
                   {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
                 </button>
               </motion.form>
