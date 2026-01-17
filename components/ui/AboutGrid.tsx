@@ -21,7 +21,7 @@ export default function AboutGrid() {
                     </div>
                     <div className="space-y-2">
                         <h3 className="text-base font-bold text-white group-hover:text-brand-cyan transition-colors">Product Thinking</h3>
-                        <p className="text-sm text-brand-gray/60 leading-relaxed">We build practical, user-focused products designed for real-world use.</p>
+                        <p className="text-sm text-brand-gray/60 leading-relaxed">We build practical, user focused products designed for real world use.</p>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@ export default function AboutGrid() {
                     </div>
                     <div className="space-y-2">
                         <h3 className="text-base font-bold text-white group-hover:text-brand-cyan transition-colors">System Design</h3>
-                        <p className="text-sm text-brand-gray/60 leading-relaxed">We design scalable systems that support long-term growth and adoption.</p>
+                        <p className="text-sm text-brand-gray/60 leading-relaxed">We design scalable systems that support long term growth and adoption.</p>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@ export default function AboutGrid() {
                     </div>
                     <div className="space-y-2">
                         <h3 className="text-base font-bold text-white group-hover:text-brand-cyan transition-colors">Validation Driven</h3>
-                        <p className="text-sm text-brand-gray/60 leading-relaxed">We test ideas through hackathons, grants, pilots, and real-world deployment.</p>
+                        <p className="text-sm text-brand-gray/60 leading-relaxed">We test ideas through hackathons, grants, pilots, and real world deployment.</p>
                     </div>
                 </div>
             </div>
