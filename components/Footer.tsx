@@ -31,8 +31,15 @@ const Footer: React.FC = () => {
 
       <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
         {/* Brand */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left gap-2">
-          <h3 className="text-xl font-bold text-white tracking-tight">Talric Labs</h3>
+        <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4">
+          <div className="flex items-center gap-3">
+            <img 
+              src="https://i.ibb.co/MkztCDnK/talriclablogo.png" 
+              alt="Talric Labs Logo" 
+              className="h-10 w-auto object-contain rounded-sm opacity-90 hover:opacity-100 transition-opacity"
+            />
+            <h3 className="text-xl font-bold text-white tracking-tight">Talric Labs</h3>
+          </div>
           <p className="text-sm text-brand-gray/50 font-light max-w-xs">Turning ideas into startups that solve real-world problems.</p>
         </div>
 
