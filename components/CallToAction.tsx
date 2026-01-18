@@ -1,51 +1,57 @@
 import React, { useState } from 'react';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CallToAction: React.FC = () => {
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const [formState, setFormState] = useState({ name: '', email: '', title: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setHasError(false);
     
-    // Use FormSubmit.co for backend-less email submission
-    fetch("https://formsubmit.co/ajax/talriclab@gmail.com", {
-        method: "POST",
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            name: formState.name,
-            email: formState.email,
-            message: formState.message,
-            _subject: `New Application from ${formState.name}`
-        })
-    })
-    .then(response => {
-        if (response.ok) {
+    try {
+        const formData = new FormData();
+        formData.append("name", formState.name);
+        formData.append("email", formState.email);
+        formData.append("title", formState.title);
+        formData.append("message", formState.message);
+        formData.append("_subject", `New Application: ${formState.title || formState.name}`);
+        formData.append("_template", "table");
+        formData.append("_captcha", "false");
+
+        // Using FormData avoids setting 'Content-Type: application/json', which triggers a CORS preflight.
+        // This is treated as a 'Simple Request' by the browser, reducing "Failed to fetch" errors.
+        const response = await fetch("https://formsubmit.co/ajax/talriclab@gmail.com", {
+            method: "POST",
+            body: formData,
+            headers: { 
+                'Accept': 'application/json'
+            }
+        });
+
+        const result = await response.json();
+
+        if (response.ok === true || result.success === "true") {
             setSubmitted(true);
-            setFormState({ name: '', email: '', message: '' });
+            setFormState({ name: '', email: '', title: '', message: '' });
         } else {
-             // Fallback to mailto if service is down/blocked
-             window.location.href = `mailto:talriclab@gmail.com?subject=New Application from ${encodeURIComponent(formState.name)}&body=${encodeURIComponent(formState.message)}`;
+             throw new Error("Submission failed");
         }
-    })
-    .catch(error => {
-        console.error(error);
-        // Fallback to mailto
-        window.location.href = `mailto:talriclab@gmail.com?subject=New Application from ${encodeURIComponent(formState.name)}&body=${encodeURIComponent(formState.message)}`;
-    })
-    .finally(() => {
+    } catch (error) {
+        console.error("Form submission error:", error);
+        setHasError(true);
+    } finally {
         setIsSubmitting(false);
-    });
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
+    if (hasError) setHasError(false);
   };
 
   return (
@@ -66,7 +72,6 @@ const CallToAction: React.FC = () => {
             <p className="text-lg text-brand-gray/60 mb-8 max-w-md">
               We are looking for passionate founders and breakthrough ideas, If you have the vision, we have the engine.
             </p>
-            
           </div>
 
           {/* Form Side */}
@@ -143,7 +148,8 @@ const CallToAction: React.FC = () => {
                       required
                       value={formState.name}
                       onChange={handleChange}
-                      className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm"
+                      disabled={isSubmitting}
+                      className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
                       placeholder="Your Name"
                     />
                   </div>
@@ -156,11 +162,28 @@ const CallToAction: React.FC = () => {
                       required
                       value={formState.email}
                       onChange={handleChange}
-                      className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm"
+                      disabled={isSubmitting}
+                      className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
                       placeholder="you@company.com"
                     />
                   </div>
                 </div>
+
+                <div className="space-y-1">
+                    <label htmlFor="title" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Subject / Title</label>
+                    <input
+                      type="text"
+                      id="title"
+                      name="title"
+                      required
+                      value={formState.title}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
+                      placeholder="Project Title or Subject"
+                    />
+                </div>
+
                 <div className="space-y-1">
                   <label htmlFor="message" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Message / Brief</label>
                   <textarea
@@ -170,10 +193,30 @@ const CallToAction: React.FC = () => {
                     rows={4}
                     value={formState.message}
                     onChange={handleChange}
-                    className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm resize-none"
+                    disabled={isSubmitting}
+                    className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm resize-none disabled:opacity-50"
                     placeholder="Describe what you are building..."
                   />
                 </div>
+
+                {hasError && (
+                    <motion.div 
+                        initial={{ opacity: 0, height: 0 }} 
+                        animate={{ opacity: 1, height: 'auto' }}
+                        className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 flex items-start gap-2"
+                    >
+                        <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
+                        <div className="flex flex-col">
+                            <p className="text-xs text-red-200">
+                                Network error. The form service may be blocked.
+                            </p>
+                            <a href={`mailto:talriclab@gmail.com?subject=${formState.title ? encodeURIComponent(formState.title) : 'New Application'}&body=${encodeURIComponent(formState.message)}`} className="text-xs underline text-white hover:text-brand-cyan mt-1 font-bold">
+                                Click here to open your email client instead.
+                            </a>
+                        </div>
+                    </motion.div>
+                )}
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
