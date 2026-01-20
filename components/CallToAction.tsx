@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ArrowRight, Check, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -7,40 +7,26 @@ const CallToAction: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setHasError(false);
+
+    if (!formRef.current) return;
     
     try {
-        const formData = new FormData();
-        formData.append("name", formState.name);
-        formData.append("email", formState.email);
-        formData.append("title", formState.title);
-        formData.append("message", formState.message);
-        formData.append("_subject", `New Application: ${formState.title || formState.name}`);
-        formData.append("_template", "table");
-        formData.append("_captcha", "false");
+        // @ts-ignore
+        await window.emailjs.sendForm(
+            'service_pbvtjwj',
+            'template_6lpr87p',
+            formRef.current
+        );
 
-        // Using FormData avoids setting 'Content-Type: application/json', which triggers a CORS preflight.
-        // This is treated as a 'Simple Request' by the browser, reducing "Failed to fetch" errors.
-        const response = await fetch("https://formsubmit.co/ajax/talriclab@gmail.com", {
-            method: "POST",
-            body: formData,
-            headers: { 
-                'Accept': 'application/json'
-            }
-        });
+        setSubmitted(true);
+        setFormState({ name: '', email: '', title: '', message: '' });
 
-        const result = await response.json();
-
-        if (response.ok === true || result.success === "true") {
-            setSubmitted(true);
-            setFormState({ name: '', email: '', title: '', message: '' });
-        } else {
-             throw new Error("Submission failed");
-        }
     } catch (error) {
         console.error("Form submission error:", error);
         setHasError(true);
@@ -131,6 +117,7 @@ const CallToAction: React.FC = () => {
             ) : (
               <motion.form 
                 key="form"
+                ref={formRef}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, y: -20 }}
