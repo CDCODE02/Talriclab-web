@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ArrowRight, Check, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -8,6 +8,17 @@ const CallToAction: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [hasError, setHasError] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+
+  // Auto-reset the form success state after 5 seconds
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (submitted) {
+      timer = setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [submitted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,21 +72,113 @@ const CallToAction: React.FC = () => {
           </div>
 
           {/* Form Side */}
-          <div className="bg-brand-navy/50 backdrop-blur-sm p-6 md:p-8 rounded-xl border border-white/10 min-h-[420px] flex flex-col justify-center">
+          <div className="bg-brand-navy/50 backdrop-blur-sm p-6 md:p-8 rounded-xl border border-white/10 min-h-[420px] flex flex-col justify-center relative overflow-hidden">
             
-            {!submitted && (
-              <h3 className="text-2xl font-bold text-white mb-6">Get in Touch</h3>
-            )}
+            <h3 className="text-2xl font-bold text-white mb-6">Get in Touch</h3>
 
-            <AnimatePresence mode="wait">
-            {submitted ? (
+            <form 
+              ref={formRef}
+              onSubmit={handleSubmit} 
+              className="space-y-4 w-full"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label htmlFor="name" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formState.name}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label htmlFor="email" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formState.email}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
+                    placeholder="you@company.com"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                  <label htmlFor="title" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Subject / Title</label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    required
+                    value={formState.title}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
+                    placeholder="Project Title or Subject"
+                  />
+              </div>
+
+              <div className="space-y-1">
+                <label htmlFor="message" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Message / Brief</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={4}
+                  value={formState.message}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm resize-none disabled:opacity-50"
+                  placeholder="Describe what you are building..."
+                />
+              </div>
+
+              {hasError && (
+                  <motion.div 
+                      initial={{ opacity: 0, height: 0 }} 
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 flex items-start gap-2"
+                  >
+                      <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
+                      <div className="flex flex-col">
+                          <p className="text-xs text-red-200">
+                              Network error. The form service may be blocked.
+                          </p>
+                          <a href={`mailto:talriclab@gmail.com?subject=${formState.title ? encodeURIComponent(formState.title) : 'New Application'}&body=${encodeURIComponent(formState.message)}`} className="text-xs underline text-white hover:text-brand-cyan mt-1 font-bold">
+                              Click here to open your email client instead.
+                          </a>
+                      </div>
+                  </motion.div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full mt-2 bg-white text-brand-navy font-bold py-3 px-6 rounded-lg hover:bg-brand-cyan hover:shadow-[0_0_15px_rgba(0,209,255,0.4)] transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-wide"
+              >
+                {isSubmitting ? 'Sending...' : 'Submit'}
+                {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+              </button>
+            </form>
+
+            <AnimatePresence>
+            {submitted && (
               <motion.div 
                 key="success"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="h-full flex flex-col items-center justify-center text-center w-full"
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="absolute inset-0 z-20 bg-brand-navy/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-8"
               >
                 <motion.div 
                   initial={{ scale: 0, rotate: -180 }}
@@ -90,129 +193,20 @@ const CallToAction: React.FC = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-xl font-bold text-white mb-2"
+                  className="text-xl font-bold text-white mb-4"
                 >
-                  Transmission Received
+                  Message Sent
                 </motion.h3>
                 
                 <motion.p 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="text-brand-gray/60 mb-8"
+                  className="text-brand-gray/80 leading-relaxed max-w-sm"
                 >
-                  Our team is reviewing your submission.
+                  Your message has been sent successfully, Our team will review it and respond as soon as possible.
                 </motion.p>
-                
-                <motion.button 
-                  onClick={() => setSubmitted(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.4 }}
-                  className="text-sm text-brand-cyan hover:text-white transition-colors uppercase tracking-widest font-semibold"
-                >
-                  Reset Form
-                </motion.button>
               </motion.div>
-            ) : (
-              <motion.form 
-                key="form"
-                ref={formRef}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                onSubmit={handleSubmit} 
-                className="space-y-4 w-full"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label htmlFor="name" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      value={formState.name}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
-                      placeholder="Your Name"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label htmlFor="email" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      value={formState.email}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
-                      placeholder="you@company.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                    <label htmlFor="title" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Subject / Title</label>
-                    <input
-                      type="text"
-                      id="title"
-                      name="title"
-                      required
-                      value={formState.title}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm disabled:opacity-50"
-                      placeholder="Project Title or Subject"
-                    />
-                </div>
-
-                <div className="space-y-1">
-                  <label htmlFor="message" className="text-[10px] uppercase font-bold tracking-widest text-brand-gray/40">Message / Brief</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={4}
-                    value={formState.message}
-                    onChange={handleChange}
-                    disabled={isSubmitting}
-                    className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-brand-cyan/50 focus:bg-brand-cyan/5 focus:outline-none transition-all placeholder-white/10 text-sm resize-none disabled:opacity-50"
-                    placeholder="Describe what you are building..."
-                  />
-                </div>
-
-                {hasError && (
-                    <motion.div 
-                        initial={{ opacity: 0, height: 0 }} 
-                        animate={{ opacity: 1, height: 'auto' }}
-                        className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 flex items-start gap-2"
-                    >
-                        <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
-                        <div className="flex flex-col">
-                            <p className="text-xs text-red-200">
-                                Network error. The form service may be blocked.
-                            </p>
-                            <a href={`mailto:talriclab@gmail.com?subject=${formState.title ? encodeURIComponent(formState.title) : 'New Application'}&body=${encodeURIComponent(formState.message)}`} className="text-xs underline text-white hover:text-brand-cyan mt-1 font-bold">
-                                Click here to open your email client instead.
-                            </a>
-                        </div>
-                    </motion.div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full mt-2 bg-white text-brand-navy font-bold py-3 px-6 rounded-lg hover:bg-brand-cyan hover:shadow-[0_0_15px_rgba(0,209,255,0.4)] transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-wide"
-                >
-                  {isSubmitting ? 'Sending...' : 'Submit'}
-                  {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
-                </button>
-              </motion.form>
             )}
             </AnimatePresence>
           </div>
