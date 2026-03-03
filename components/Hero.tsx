@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
                     width="150"
                     height="48"
                     // @ts-ignore
-                    fetchPriority="high"
+                    fetchpriority="high"
                     onLoad={() => setLogoLoaded(true)}
                     className="w-auto object-contain rounded-md h-12"
                 />
